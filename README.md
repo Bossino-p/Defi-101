@@ -16,3 +16,32 @@ src/
 ├── pages/
 │   └── Home.jsx
 ├── App.jsx
+// src/data/protocols.js
+
+export const categories = [
+  {
+    title: "DEX (Decentralized Exchange)",
+    description: "Platforms that allow users to swap tokens without intermediaries.",
+    examples: ["Uniswap", "SushiSwap"]
+  },
+  {
+    title: "Perpetual DEX",
+    description: "Trading platforms for perpetual futures without expiry, using leverage.",
+    examples: ["dYdX", "GMX"]
+  },
+  {
+    title: "Lending / Borrowing",
+    description: "Protocols where users lend assets to earn yield or borrow against collateral.",
+    examples: ["Aave", "Compound"]
+  },
+  {
+    title: "Yield Tokenization",
+    description: "Protocols that split yield from principal for advanced strategies.",
+    examples: ["Pendle"]
+  },
+  {
+    title: "Liquid Staking",
+    description: "Stake assets while maintaining liquidity via derivative tokens.",
+    examples: ["Lido"]
+  }
+];
