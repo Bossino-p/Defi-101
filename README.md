@@ -45,3 +45,19 @@ export const categories = [
     examples: ["Lido"]
   }
 ];
+// src/components/ProtocolCard.jsx
+
+export default function ProtocolCard({ title, description, examples }) {
+  return (
+    <div style={{ border: "1px solid #ccc", padding: "16px", marginBottom: "12px" }}>
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <strong>Examples:</strong>
+      <ul>
+        {examples.map((ex, i) => (
+          <li key={i}>{ex}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
