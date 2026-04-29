@@ -61,3 +61,20 @@ export default function ProtocolCard({ title, description, examples }) {
     </div>
   );
 }
+// src/pages/Home.jsx
+
+import { categories } from "../data/protocols";
+import ProtocolCard from "../components/ProtocolCard";
+
+export default function Home() {
+  return (
+    <div>
+      <h1>DeFi 101</h1>
+      <p>Understanding core decentralized finance primitives</p>
+
+      {categories.map((cat, i) => (
+        <ProtocolCard key={i} {...cat} />
+      ))}
+    </div>
+  );
+}
