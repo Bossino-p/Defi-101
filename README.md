@@ -6,3 +6,5 @@ Complete lists of different types of Defi Protocols with brief explanation on ea
 Filter by complexity, market condition and risk
 >
 Add beginner mode toggle button 
+>
+Example of each Defi type and link to their websites
