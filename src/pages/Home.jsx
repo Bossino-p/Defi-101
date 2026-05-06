@@ -6,22 +6,33 @@ const pages = [
     title: "DeFi 101",
     description: "Explore the main types of DeFi protocols — from DEXs and lending to restaking and prediction markets.",
     tag: "14 protocol types",
-    accent: "#2563eb",
     accentBg: "#0c1a2e",
     border: "#1e3a5f",
     hoverBorder: "#2563eb",
     tagColor: "#60a5fa",
+    accent: "#2563eb",
   },
   {
     path: "/risk101",
     title: "DeFi Risk 101",
     description: "Understand the risks before putting your funds to work — smart contract exploits, liquidations, phishing, and more.",
     tag: "11 risk types",
-    accent: "#f59e0b",
     accentBg: "#2d1a00",
     border: "#4a3520",
     hoverBorder: "#f59e0b",
     tagColor: "#fbbf24",
+    accent: "#f59e0b",
+  },
+  {
+    path: "/wallet101",
+    title: "Wallet 101",
+    description: "Understand hot and cold wallets, how to use them safely, and how to avoid the most common scams and phishing attacks.",
+    tag: "11 wallets covered",
+    accentBg: "#0a1f1f",
+    border: "#134e4a",
+    hoverBorder: "#2dd4bf",
+    tagColor: "#2dd4bf",
+    accent: "#2dd4bf",
   },
 ];
 
@@ -68,18 +79,19 @@ function Home() {
           marginTop: "14px",
           maxWidth: "420px",
           lineHeight: "1.6",
+          margin: "14px auto 0",
         }}>
-          A no-fluff guide to understanding decentralized finance — protocols, risks, and everything in between.
+          A no-fluff guide to understanding decentralized finance — protocols, risks, wallets, and everything in between.
         </p>
       </div>
 
       {/* Cards */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
         gap: "16px",
         width: "100%",
-        maxWidth: "680px",
+        maxWidth: "900px",
       }}>
         {pages.map((page) => (
           <button
@@ -104,7 +116,6 @@ function Home() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            {/* Tag */}
             <span style={{
               fontSize: "11px",
               fontWeight: 600,
@@ -118,7 +129,6 @@ function Home() {
               {page.tag}
             </span>
 
-            {/* Title */}
             <div style={{
               fontSize: "22px",
               fontWeight: 700,
@@ -129,7 +139,6 @@ function Home() {
               {page.title}
             </div>
 
-            {/* Description */}
             <p style={{
               fontSize: "13px",
               color: "#64748b",
@@ -139,16 +148,12 @@ function Home() {
               {page.description}
             </p>
 
-            {/* CTA */}
             <div style={{
               fontSize: "13px",
               fontWeight: 600,
               color: page.accent,
-              display: "flex",
-              alignItems: "center",
-              gap: "4px",
             }}>
-              Explore → 
+              Explore →
             </div>
           </button>
         ))}
