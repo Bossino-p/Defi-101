@@ -8,3 +8,5 @@ Filter by complexity, market condition and risk
 Add beginner mode toggle button 
 >
 Example of each Defi type and link to their websites
+>
+Add a defi Risk 101 page
