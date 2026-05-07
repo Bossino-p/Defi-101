@@ -5,6 +5,8 @@ import RiskPage from "./pages/RiskPage";
 import WalletPage from "./pages/WalletPage";
 import ChainPage from "./pages/ChainPage";
 import ScamPage from "./pages/ScamPage";
+import GlossaryPage from "./pages/GlossaryPage";
+import StrategiesPage from "./pages/StrategiesPage";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/wallet101" element={<WalletPage />} />
         <Route path="/chain101" element={<ChainPage />} />
         <Route path="/scamguard" element={<ScamPage />} />
+        <Route path="/glossary" element={<GlossaryPage />} />
+        <Route path="/strategies" element={<StrategiesPage />} />
       </Routes>
     </HashRouter>
   );

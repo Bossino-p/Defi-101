@@ -56,6 +56,28 @@ const pages = [
     tagColor: "#fca5a5",
     accent: "#ef4444",
   },
+  {
+    path: "/glossary",
+    title: "DeFi Glossary",
+    description: "Searchable reference for DeFi terms — APY, slippage, liquidation, oracles, and everything in between.",
+    tag: "45 terms",
+    accentBg: "#0a1f0a",
+    border: "#1a3320",
+    hoverBorder: "#16a34a",
+    tagColor: "#4ade80",
+    accent: "#16a34a",
+  },
+  {
+    path: "/strategies",
+    title: "DeFi Strategies",
+    description: "Common yield strategies explained step by step — from stablecoin yield to delta neutral and looping.",
+    tag: "8 strategies",
+    accentBg: "#1a1000",
+    border: "#3d2800",
+    hoverBorder: "#f59e0b",
+    tagColor: "#fbbf24",
+    accent: "#f59e0b",
+  },
 ];
 
 function Home() {
@@ -75,35 +97,14 @@ function Home() {
 
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "56px" }}>
-        <div style={{
-          fontSize: "11px",
-          fontWeight: 700,
-          letterSpacing: "2px",
-          textTransform: "uppercase",
-          color: "#475569",
-          marginBottom: "12px",
-        }}>
+        <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: "#475569", marginBottom: "12px" }}>
           Learn DeFi
         </div>
-        <h1 style={{
-          fontSize: "42px",
-          fontWeight: 700,
-          color: "#ffffff",
-          margin: 0,
-          letterSpacing: "-1px",
-          lineHeight: 1.15,
-        }}>
+        <h1 style={{ fontSize: "42px", fontWeight: 700, color: "#ffffff", margin: 0, letterSpacing: "-1px", lineHeight: 1.15 }}>
           DeFi Education Hub
         </h1>
-        <p style={{
-          fontSize: "16px",
-          color: "#64748b",
-          marginTop: "14px",
-          maxWidth: "460px",
-          lineHeight: "1.6",
-          margin: "14px auto 0",
-        }}>
-          A no-fluff guide to understanding decentralized finance — protocols, risks, wallets, chains, and everything in between.
+        <p style={{ fontSize: "16px", color: "#64748b", marginTop: "14px", maxWidth: "480px", lineHeight: "1.6", margin: "14px auto 0" }}>
+          A no-fluff guide to decentralized finance — protocols, risks, wallets, chains, strategies, and everything in between.
         </p>
       </div>
 
@@ -111,7 +112,7 @@ function Home() {
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-        gap: "16px",
+        gap: "14px",
         width: "100%",
         maxWidth: "1100px",
       }}>
@@ -123,7 +124,7 @@ function Home() {
               background: "#161618",
               border: `1px solid ${page.border}`,
               borderRadius: "16px",
-              padding: "28px",
+              padding: "24px",
               textAlign: "left",
               cursor: "pointer",
               transition: "border-color 0.2s, transform 0.15s",
@@ -138,50 +139,22 @@ function Home() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <span style={{
-              fontSize: "11px",
-              fontWeight: 600,
-              padding: "3px 9px",
-              borderRadius: "20px",
-              background: page.accentBg,
-              color: page.tagColor,
-              display: "inline-block",
-              marginBottom: "16px",
-            }}>
+            <span style={{ fontSize: "11px", fontWeight: 600, padding: "3px 9px", borderRadius: "20px", background: page.accentBg, color: page.tagColor, display: "inline-block", marginBottom: "14px" }}>
               {page.tag}
             </span>
-
-            <div style={{
-              fontSize: "20px",
-              fontWeight: 700,
-              color: "#ffffff",
-              marginBottom: "10px",
-              letterSpacing: "-0.3px",
-            }}>
+            <div style={{ fontSize: "18px", fontWeight: 700, color: "#ffffff", marginBottom: "8px", letterSpacing: "-0.3px" }}>
               {page.title}
             </div>
-
-            <p style={{
-              fontSize: "13px",
-              color: "#64748b",
-              lineHeight: "1.6",
-              margin: "0 0 20px 0",
-            }}>
+            <p style={{ fontSize: "12px", color: "#64748b", lineHeight: "1.6", margin: "0 0 18px 0" }}>
               {page.description}
             </p>
-
-            <div style={{
-              fontSize: "13px",
-              fontWeight: 600,
-              color: page.accent,
-            }}>
+            <div style={{ fontSize: "12px", fontWeight: 600, color: page.accent }}>
               Explore →
             </div>
           </button>
         ))}
       </div>
 
-      {/* Footer */}
       <p style={{ fontSize: "12px", color: "#334155", marginTop: "48px" }}>
         More guides coming soon
       </p>
