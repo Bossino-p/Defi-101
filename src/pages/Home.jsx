@@ -46,6 +46,17 @@ const pages = [
     accent: "#a78bfa",
   },
   {
+    path: "/token101",
+    title: "Token 101",
+    description: "Understand token types, how to evaluate them before buying, and the tokenomics that determine long-term value.",
+    tag: "9 token types",
+    accentBg: "#1a0d14",
+    border: "#4a1942",
+    hoverBorder: "#ec4899",
+    tagColor: "#f9a8d4",
+    accent: "#ec4899",
+  },
+  {
     path: "/scamguard",
     title: "Scam Guard",
     description: "Recognize and avoid the most common DeFi scams — phishing, rug pulls, approval exploits, fake airdrops, and more.",
@@ -104,7 +115,7 @@ function Home() {
           DeFi Education Hub
         </h1>
         <p style={{ fontSize: "16px", color: "#64748b", marginTop: "14px", maxWidth: "480px", lineHeight: "1.6", margin: "14px auto 0" }}>
-          A no-fluff guide to decentralized finance — protocols, risks, wallets, chains, strategies, and everything in between.
+          A no-fluff guide to decentralized finance — protocols, risks, wallets, chains, tokens, strategies, and everything in between.
         </p>
       </div>
 

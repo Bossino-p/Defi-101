@@ -7,6 +7,7 @@ import ChainPage from "./pages/ChainPage";
 import ScamPage from "./pages/ScamPage";
 import GlossaryPage from "./pages/GlossaryPage";
 import StrategiesPage from "./pages/StrategiesPage";
+import TokenPage from "./pages/TokenPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/scamguard" element={<ScamPage />} />
         <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/strategies" element={<StrategiesPage />} />
+        <Route path="/token101" element={<TokenPage />} />
       </Routes>
     </HashRouter>
   );
