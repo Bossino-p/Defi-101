@@ -10,3 +10,5 @@ Add beginner mode toggle button
 Example of each Defi type and link to their websites
 >
 Add a defi Risk 101 page
+>
+Add Chain 101 page
