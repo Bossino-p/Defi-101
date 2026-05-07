@@ -210,6 +210,7 @@ function Home() {
         marginTop: "80px",
         borderTop: "1px solid #1e1e22",
         paddingTop: "40px",
+        textAlign: "left",
       }}>
         <div style={{ marginBottom: "24px" }}>
           <p style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.5px", color: "#334155", margin: 0 }}>
@@ -231,6 +232,7 @@ function Home() {
                 letterSpacing: "0.8px",
                 color: "#475569",
                 margin: "0 0 12px 0",
+                textAlign: "left",
               }}>
                 {label}
               </p>
@@ -238,7 +240,7 @@ function Home() {
                 {items.map((item, i) => (
                   <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
                     <span style={{ color: "#334155", fontSize: "12px", marginTop: "2px", flexShrink: 0 }}>—</span>
-                    <p style={{ fontSize: "12px", color: "#475569", lineHeight: "1.6", margin: 0 }}>
+                   <p style={{ fontSize: "12px", color: "#475569", lineHeight: "1.6", margin: 0, textAlign: "left" }}>
                       {item}
                     </p>
                   </div>
