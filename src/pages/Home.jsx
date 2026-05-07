@@ -45,6 +45,17 @@ const pages = [
     tagColor: "#a78bfa",
     accent: "#a78bfa",
   },
+  {
+    path: "/scamguard",
+    title: "Scam Guard",
+    description: "Recognize and avoid the most common DeFi scams — phishing, rug pulls, approval exploits, fake airdrops, and more.",
+    tag: "10 scam types",
+    accentBg: "#2d0a0a",
+    border: "#3d1515",
+    hoverBorder: "#ef4444",
+    tagColor: "#fca5a5",
+    accent: "#ef4444",
+  },
 ];
 
 function Home() {
@@ -102,7 +113,7 @@ function Home() {
         gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
         gap: "16px",
         width: "100%",
-        maxWidth: "1000px",
+        maxWidth: "1100px",
       }}>
         {pages.map((page) => (
           <button
