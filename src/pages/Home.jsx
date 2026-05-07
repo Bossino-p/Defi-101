@@ -34,6 +34,17 @@ const pages = [
     tagColor: "#2dd4bf",
     accent: "#2dd4bf",
   },
+  {
+    path: "/chain101",
+    title: "Chain 101",
+    description: "Learn the blockchains behind DeFi — L1s, L2s, EVM vs non-EVM, and how to choose the right chain for your needs.",
+    tag: "10 chains covered",
+    accentBg: "#1a1230",
+    border: "#2d1f45",
+    hoverBorder: "#7c3aed",
+    tagColor: "#a78bfa",
+    accent: "#a78bfa",
+  },
 ];
 
 function Home() {
@@ -77,21 +88,21 @@ function Home() {
           fontSize: "16px",
           color: "#64748b",
           marginTop: "14px",
-          maxWidth: "420px",
+          maxWidth: "460px",
           lineHeight: "1.6",
           margin: "14px auto 0",
         }}>
-          A no-fluff guide to understanding decentralized finance — protocols, risks, wallets, and everything in between.
+          A no-fluff guide to understanding decentralized finance — protocols, risks, wallets, chains, and everything in between.
         </p>
       </div>
 
       {/* Cards */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
         gap: "16px",
         width: "100%",
-        maxWidth: "900px",
+        maxWidth: "1000px",
       }}>
         {pages.map((page) => (
           <button
@@ -130,7 +141,7 @@ function Home() {
             </span>
 
             <div style={{
-              fontSize: "22px",
+              fontSize: "20px",
               fontWeight: 700,
               color: "#ffffff",
               marginBottom: "10px",
@@ -160,11 +171,7 @@ function Home() {
       </div>
 
       {/* Footer */}
-      <p style={{
-        fontSize: "12px",
-        color: "#334155",
-        marginTop: "48px",
-      }}>
+      <p style={{ fontSize: "12px", color: "#334155", marginTop: "48px" }}>
         More guides coming soon
       </p>
     </div>
