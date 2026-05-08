@@ -1,111 +1,107 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@theme {
+  --color-dark-base: #0d0d0f;
+  --color-dark-card: #161618;
+  --color-dark-surface: #161b27;
+  --color-dark-border: #1e1e22;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-blue-accent: #2563eb;
+  --color-blue-tag-bg: #0c1a2e;
+  --color-blue-tag-text: #60a5fa;
+  --color-blue-border: #1e3a5f;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
+  --color-amber-accent: #f59e0b;
+  --color-amber-tag-bg: #2d1a00;
+  --color-amber-tag-text: #fbbf24;
+  --color-amber-border: #4a3520;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+  --color-teal-accent: #2dd4bf;
+  --color-teal-tag-bg: #0a1f1f;
+  --color-teal-tag-text: #2dd4bf;
+  --color-teal-border: #134e4a;
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
+  --color-purple-accent: #a78bfa;
+  --color-purple-tag-bg: #1a1230;
+  --color-purple-tag-text: #a78bfa;
+  --color-purple-border: #2d1f45;
 
-body {
-  margin: 0;
-}
+  --color-pink-accent: #ec4899;
+  --color-pink-tag-bg: #1a0d14;
+  --color-pink-tag-text: #f9a8d4;
+  --color-pink-border: #4a1942;
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+  --color-red-accent: #ef4444;
+  --color-red-tag-bg: #2d0a0a;
+  --color-red-tag-text: #fca5a5;
+  --color-red-border: #3d1515;
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
+  --color-green-accent: #16a34a;
+  --color-green-tag-bg: #0a1f0a;
+  --color-green-tag-text: #4ade80;
+  --color-green-border: #1a3320;
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
+  --color-orange-accent: #f59e0b;
+  --color-orange-tag-bg: #1a1000;
+  --color-orange-tag-text: #fbbf24;
+  --color-orange-border: #3d2800;
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
+  --color-muted: #64748b;
+  --color-muted-dark: #334155;
+  --color-muted-darker: #2d3748;
+  --color-disclaimer: #475569;
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  /* Risk 101 */
+  --color-risk-base: #110e0a;
+  --color-risk-card: #1a1410;
+  --color-risk-border: #3d2e1e;
+  --color-risk-hover: #6b4c2a;
+
+  /* Wallet 101 */
+  --color-wallet-base: #080f0f;
+  --color-wallet-card: #0f1a1a;
+  --color-wallet-border: #1a3333;
+  --color-wallet-hover: #2a5555;
+
+  /* Chain 101 */
+  --color-chain-base: #0a0812;
+  --color-chain-card: #120f1a;
+  --color-chain-border: #2d1f45;
+  --color-chain-hover: #5b21b6;
+
+  /* Token 101 */
+  --color-token-base: #0a0810;
+  --color-token-card: #180d14;
+  --color-token-border: #4a1942;
+  --color-token-hover: #9d174d;
+
+  /* Scam Guard */
+  --color-scam-base: #0d0808;
+  --color-scam-card: #140a0a;
+  --color-scam-border: #3d1515;
+  --color-scam-hover: #7f1d1d;
+
+  /* Glossary */
+  --color-glossary-base: #080f08;
+  --color-glossary-card: #0d1a0d;
+  --color-glossary-border: #1a3320;
+  --color-glossary-hover: #14532d;
+
+  /* Strategies */
+  --color-strategy-base: #0a0800;
+  --color-strategy-card: #130f08;
+  --color-strategy-border: #3d2800;
+  --color-strategy-hover: #854d0e;
+
+  /* DeFi 101 */
+  --color-defi-base: #0f1117;
+  --color-defi-card: #161b27;
+  --color-defi-border: #2d3748;
+  --color-defi-hover: #4a5568;
+
+  /* Shared */
+  --color-text-white: #ffffff;
+  --color-text-soft: #94a3b8;
+  --color-text-hint: #475569;
+  --color-divider: #2d3748;
 }

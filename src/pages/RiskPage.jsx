@@ -6,48 +6,22 @@ import RiskCard from "../components/RiskCard";
 const categories = ["All", "Protocol", "Market", "Human"];
 const severities = ["All", "High", "Medium", "Low"];
 
-function FilterRow({ label, options, selected, onSelect, accentColor }) {
+function FilterRow({ label, options, selected, onSelect }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-      <span style={{
-        fontSize: "11px",
-        fontWeight: 700,
-        color: "#92400e",
-        textTransform: "uppercase",
-        letterSpacing: "0.6px",
-        minWidth: "84px",
-      }}>
+    <div className="flex items-center gap-2 flex-wrap">
+      <span className="text-[11px] font-bold uppercase tracking-wide text-risk-hover min-w-[84px]">
         {label}
       </span>
-      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+      <div className="flex gap-1.5 flex-wrap">
         {options.map((opt) => (
           <button
             key={opt}
             onClick={() => onSelect(opt)}
-            style={{
-              fontSize: "13px",
-              fontWeight: 500,
-              padding: "6px 14px",
-              borderRadius: "20px",
-              border: selected === opt ? "1px solid #f59e0b" : "1px solid #4a3520",
-              background: selected === opt ? "#b45309" : "#1e1610",
-              color: "#ffffff",
-              cursor: "pointer",
-              transition: "all 0.15s",
-              fontFamily: "inherit",
-            }}
-            onMouseEnter={(e) => {
-              if (selected !== opt) {
-                e.currentTarget.style.background = "#2d1f0e";
-                e.currentTarget.style.borderColor = "#6b4c2a";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (selected !== opt) {
-                e.currentTarget.style.background = "#1e1610";
-                e.currentTarget.style.borderColor = "#4a3520";
-              }
-            }}
+            className={`text-[13px] font-medium px-3.5 py-1.5 rounded-full border transition-all duration-150 cursor-pointer
+              ${selected === opt
+                ? "bg-amber-accent border-amber-accent text-white font-semibold"
+                : "bg-risk-card border-risk-border text-white hover:bg-risk-base hover:border-risk-hover"
+              }`}
           >
             {opt}
           </button>
@@ -69,61 +43,32 @@ function RiskPage() {
   });
 
   return (
-    <div style={{
-      background: "#110e0a",
-      minHeight: "100vh",
-      padding: "40px 24px",
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+    <div className="bg-risk-base min-h-screen px-6 py-10 font-sans">
+      <div className="max-w-6xl mx-auto">
 
-        {/* Back button */}
+        {/* Back */}
         <button
           onClick={() => navigate("/")}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            fontSize: "13px",
-            color: "#92400e",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: 0,
-            fontFamily: "inherit",
-            marginBottom: "28px",
-            transition: "color 0.15s",
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = "#f59e0b"}
-          onMouseLeave={(e) => e.currentTarget.style.color = "#92400e"}
+          className="flex items-center gap-1.5 text-[13px] text-risk-hover hover:text-amber-tag-text transition-colors mb-7"
         >
           ← Back to hub
         </button>
 
         {/* Header */}
-        <div style={{ marginBottom: "32px" }}>
-          <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#ffffff", margin: 0, letterSpacing: "-0.5px" }}>
-            DeFi Risk 101
-          </h1>
-          <p style={{ fontSize: "14px", color: "#92400e", marginTop: "6px", marginBottom: 0 }}>
-            Understand the risks before you put your funds to work.
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white tracking-tight">DeFi Risk 101</h1>
+          <p className="text-sm text-amber-accent mt-1.5">
+            Understand the risks before putting your funds to work.
           </p>
 
-          {/* Category summary pills */}
-          <div style={{ display: "flex", gap: "8px", marginTop: "16px", flexWrap: "wrap" }}>
+          {/* Category summary */}
+          <div className="flex gap-2 mt-4 flex-wrap">
             {[
-              { label: "Protocol risks", count: risks.filter(r => r.category === "Protocol").length, color: "#a78bfa", bg: "#1a0d2e" },
-              { label: "Market risks", count: risks.filter(r => r.category === "Market").length, color: "#fbbf24", bg: "#2d1a00" },
-              { label: "Human risks", count: risks.filter(r => r.category === "Human").length, color: "#34d399", bg: "#0d2217" },
-            ].map(({ label, count, color, bg }) => (
-              <span key={label} style={{
-                fontSize: "12px",
-                padding: "4px 12px",
-                borderRadius: "20px",
-                background: bg,
-                color: color,
-                fontWeight: 500,
-              }}>
+              { label: "Protocol risks", count: risks.filter(r => r.category === "Protocol").length, color: "bg-purple-tag-bg text-purple-tag-text" },
+              { label: "Market risks", count: risks.filter(r => r.category === "Market").length, color: "bg-amber-tag-bg text-amber-tag-text" },
+              { label: "Human risks", count: risks.filter(r => r.category === "Human").length, color: "bg-green-tag-bg text-green-tag-text" },
+            ].map(({ label, count, color }) => (
+              <span key={label} className={`text-xs font-medium px-3 py-1 rounded-full ${color}`}>
                 {count} {label}
               </span>
             ))}
@@ -131,55 +76,25 @@ function RiskPage() {
         </div>
 
         {/* Filters */}
-        <div style={{
-          background: "#1a1410",
-          border: "1px solid #3d2e1e",
-          borderRadius: "12px",
-          padding: "20px",
-          marginBottom: "28px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-        }}>
-          <FilterRow
-            label="Category"
-            options={categories}
-            selected={selectedCategory}
-            onSelect={setSelectedCategory}
-          />
-          <FilterRow
-            label="Severity"
-            options={severities}
-            selected={selectedSeverity}
-            onSelect={setSelectedSeverity}
-          />
+        <div className="bg-risk-card border border-risk-border rounded-xl p-5 mb-7 flex flex-col gap-4">
+          <FilterRow label="Category" options={categories} selected={selectedCategory} onSelect={setSelectedCategory} />
+          <FilterRow label="Severity" options={severities} selected={selectedSeverity} onSelect={setSelectedSeverity} />
         </div>
 
         {/* Count */}
-        <p style={{ fontSize: "12px", color: "#6b4c2a", marginBottom: "16px", marginTop: 0 }}>
+        <p className="text-xs text-risk-hover mb-4">
           {filtered.length} risk{filtered.length !== 1 ? "s" : ""} shown
         </p>
 
         {/* Empty state */}
         {filtered.length === 0 && (
-          <div style={{
-            textAlign: "center",
-            padding: "48px 24px",
-            color: "#6b4c2a",
-            fontSize: "14px",
-            border: "1px dashed #3d2e1e",
-            borderRadius: "12px",
-          }}>
+          <div className="text-center py-12 text-risk-hover text-sm border border-dashed border-risk-border rounded-xl">
             No risks match these filters.
           </div>
         )}
 
         {/* Grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: "12px",
-        }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {filtered.map((risk) => (
             <RiskCard key={risk.title} {...risk} />
           ))}

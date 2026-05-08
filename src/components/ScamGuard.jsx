@@ -2,69 +2,29 @@ import { scamRules } from "../data/wallets";
 
 function ScamGuard() {
   return (
-    <div style={{
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    }}>
+    <div>
       {/* Section header */}
-      <div style={{ marginBottom: "20px" }}>
-        <h2 style={{
-          fontSize: "20px",
-          fontWeight: 700,
-          color: "#ffffff",
-          margin: "0 0 6px 0",
-          letterSpacing: "-0.3px",
-        }}>
-          What not to do
-        </h2>
-        <p style={{ fontSize: "13px", color: "#5eead4", margin: 0 }}>
-          Most losses in DeFi aren't from bad trades — they're from preventable mistakes. Learn these rules before touching any wallet.
+      <div className="mb-5">
+        <h2 className="text-xl font-bold text-white tracking-tight mb-1.5">What not to do</h2>
+        <p className="text-[13px] text-teal-accent">
+          Most losses in DeFi aren't from bad trades — they're from preventable mistakes.
         </p>
       </div>
 
       {/* Rules grid */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-        gap: "10px",
-      }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
         {scamRules.map((item, i) => (
           <div
             key={i}
-            style={{
-              background: "#1a0d0d",
-              border: "1px solid #3d1515",
-              borderRadius: "12px",
-              padding: "16px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-              transition: "border-color 0.15s",
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = "#7f1d1d"}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = "#3d1515"}
+            className="bg-scam-card border border-scam-border rounded-xl p-4 flex flex-col gap-2 hover:border-scam-hover transition-colors duration-150"
           >
-            {/* Icon + rule title */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <span style={{ fontSize: "20px" }}>{item.icon}</span>
-              <span style={{
-                fontSize: "13px",
-                fontWeight: 700,
-                color: "#fca5a5",
-                lineHeight: "1.3",
-              }}>
+            <div className="flex items-center gap-2.5">
+              <span className="text-xl">{item.icon}</span>
+              <span className="text-[13px] font-bold text-red-tag-text leading-snug">
                 {item.rule}
               </span>
             </div>
-
-            {/* Detail */}
-            <p style={{
-              fontSize: "12px",
-              color: "#94a3b8",
-              lineHeight: "1.6",
-              margin: 0,
-            }}>
-              {item.detail}
-            </p>
+            <p className="text-[12px] text-white/70 leading-relaxed">{item.detail}</p>
           </div>
         ))}
       </div>

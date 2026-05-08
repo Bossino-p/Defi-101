@@ -8,46 +8,15 @@ const severities = ["All", "High", "Medium"];
 
 function FilterRow({ label, options, selected, onSelect }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-      <span style={{
-        fontSize: "11px",
-        fontWeight: 700,
-        color: "#7f1d1d",
-        textTransform: "uppercase",
-        letterSpacing: "0.6px",
-        minWidth: "84px",
-      }}>
-        {label}
-      </span>
-      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+    <div className="flex items-center gap-2 flex-wrap">
+      <span className="text-[11px] font-bold uppercase tracking-wide text-scam-hover min-w-[84px]">{label}</span>
+      <div className="flex gap-1.5 flex-wrap">
         {options.map((opt) => (
-          <button
-            key={opt}
-            onClick={() => onSelect(opt)}
-            style={{
-              fontSize: "13px",
-              fontWeight: 500,
-              padding: "6px 14px",
-              borderRadius: "20px",
-              border: selected === opt ? "1px solid #ef4444" : "1px solid #3d1515",
-              background: selected === opt ? "#991b1b" : "#1a0a0a",
-              color: "#ffffff",
-              cursor: "pointer",
-              transition: "all 0.15s",
-              fontFamily: "inherit",
-            }}
-            onMouseEnter={(e) => {
-              if (selected !== opt) {
-                e.currentTarget.style.background = "#2d0a0a";
-                e.currentTarget.style.borderColor = "#7f1d1d";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (selected !== opt) {
-                e.currentTarget.style.background = "#1a0a0a";
-                e.currentTarget.style.borderColor = "#3d1515";
-              }
-            }}
+          <button key={opt} onClick={() => onSelect(opt)} className={`text-[13px] font-medium px-3.5 py-1.5 rounded-full border transition-all duration-150 cursor-pointer
+            ${selected === opt
+              ? "bg-red-accent border-red-accent text-white font-semibold"
+              : "bg-scam-card border-scam-border text-white hover:bg-scam-base hover:border-scam-hover"
+            }`}
           >
             {opt}
           </button>
@@ -61,24 +30,12 @@ function ScamPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedSeverity, setSelectedSeverity] = useState("All");
   const [checked, setChecked] = useState({});
-  const [checklistDone, setChecklistDone] = useState(false);
   const navigate = useNavigate();
 
   const allChecked = checklistItems.every((item) => checked[item.id]);
 
   function toggleCheck(id) {
-    const updated = { ...checked, [id]: !checked[id] };
-    setChecked(updated);
-    if (checklistItems.every((item) => updated[item.id])) {
-      setChecklistDone(true);
-    } else {
-      setChecklistDone(false);
-    }
-  }
-
-  function resetChecklist() {
-    setChecked({});
-    setChecklistDone(false);
+    setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
   }
 
   const filtered = scamTypes.filter((s) => {
@@ -88,217 +45,107 @@ function ScamPage() {
   });
 
   return (
-    <div style={{
-      background: "#0d0808",
-      minHeight: "100vh",
-      padding: "40px 24px",
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+    <div className="bg-scam-base min-h-screen px-6 py-10 font-sans">
+      <div className="max-w-6xl mx-auto">
 
-        {/* Back button */}
+        {/* Back */}
         <button
           onClick={() => navigate("/")}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            fontSize: "13px",
-            color: "#7f1d1d",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: 0,
-            fontFamily: "inherit",
-            marginBottom: "28px",
-            transition: "color 0.15s",
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = "#fca5a5"}
-          onMouseLeave={(e) => e.currentTarget.style.color = "#7f1d1d"}
+          className="flex items-center gap-1.5 text-[13px] text-scam-hover hover:text-red-tag-text transition-colors mb-7"
         >
           ← Back to hub
         </button>
 
         {/* Header */}
-        <div style={{ marginBottom: "40px" }}>
-          <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#ffffff", margin: 0, letterSpacing: "-0.5px" }}>
-            Scam Guard
-          </h1>
-          <p style={{ fontSize: "14px", color: "#ef4444", marginTop: "6px", marginBottom: 0 }}>
+        <div className="mb-10">
+          <h1 className="text-3xl font-bold text-white tracking-tight">Scam Guard</h1>
+          <p className="text-sm text-red-accent mt-1.5">
             Most losses in DeFi are preventable. Learn to recognize scams before they cost you.
           </p>
 
-          {/* Category summary */}
-          <div style={{ display: "flex", gap: "8px", marginTop: "16px", flexWrap: "wrap" }}>
+          <div className="flex gap-2 mt-4 flex-wrap">
             {[
-              { label: "Social Engineering", count: scamTypes.filter(s => s.category === "Social Engineering").length, color: "#fca5a5", bg: "#2d0a0a" },
-              { label: "Token Scams", count: scamTypes.filter(s => s.category === "Token Scams").length, color: "#fbbf24", bg: "#2d1a00" },
-              { label: "Transaction Scams", count: scamTypes.filter(s => s.category === "Transaction Scams").length, color: "#a78bfa", bg: "#1a0d2e" },
-              { label: "Protocol Scams", count: scamTypes.filter(s => s.category === "Protocol Scams").length, color: "#60a5fa", bg: "#0c1a2e" },
-            ].map(({ label, count, color, bg }) => (
-              <span key={label} style={{
-                fontSize: "12px",
-                padding: "4px 12px",
-                borderRadius: "20px",
-                background: bg,
-                color: color,
-                fontWeight: 500,
-              }}>
+              { label: "Social Engineering", count: scamTypes.filter(s => s.category === "Social Engineering").length, cls: "bg-red-tag-bg text-red-tag-text" },
+              { label: "Token Scams", count: scamTypes.filter(s => s.category === "Token Scams").length, cls: "bg-amber-tag-bg text-amber-tag-text" },
+              { label: "Transaction Scams", count: scamTypes.filter(s => s.category === "Transaction Scams").length, cls: "bg-purple-tag-bg text-purple-tag-text" },
+              { label: "Protocol Scams", count: scamTypes.filter(s => s.category === "Protocol Scams").length, cls: "bg-blue-tag-bg text-blue-tag-text" },
+            ].map(({ label, count, cls }) => (
+              <span key={label} className={`text-xs font-medium px-3 py-1 rounded-full ${cls}`}>
                 {count} {label}
               </span>
             ))}
           </div>
         </div>
 
-        {/* ── SECTION 1: Before you sign checklist ── */}
-        <div style={{ marginBottom: "48px" }}>
-          <div style={{
-            background: "#140a0a",
-            border: `1px solid ${allChecked ? "#16a34a" : "#3d1515"}`,
-            borderRadius: "14px",
-            padding: "24px",
-            transition: "border-color 0.3s",
-          }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px", flexWrap: "wrap", gap: "10px" }}>
+        {/* ── Checklist ── */}
+        <div className="mb-12">
+          <div className={`bg-scam-card border rounded-2xl p-6 transition-colors duration-300 ${allChecked ? "border-green-500" : "border-scam-border"}`}>
+            <div className="flex justify-between items-start mb-4 flex-wrap gap-3">
               <div>
-                <h2 style={{ fontSize: "18px", fontWeight: 700, color: "#ffffff", margin: "0 0 4px 0" }}>
-                  Before you sign — checklist
-                </h2>
-                <p style={{ fontSize: "13px", color: "#94a3b8", margin: 0 }}>
-                  Run through this before approving any transaction you're unsure about.
-                </p>
+                <h2 className="text-lg font-bold text-white mb-1">Before you sign — checklist</h2>
+                <p className="text-[13px] text-white/70">Run through this before approving any transaction you're unsure about.</p>
               </div>
               {Object.keys(checked).length > 0 && (
                 <button
-                  onClick={resetChecklist}
-                  style={{
-                    fontSize: "12px",
-                    color: "#7f1d1d",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 0,
-                    fontFamily: "inherit",
-                    transition: "color 0.15s",
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = "#fca5a5"}
-                  onMouseLeave={(e) => e.currentTarget.style.color = "#7f1d1d"}
+                  onClick={() => setChecked({})}
+                  className="text-[12px] text-scam-hover hover:text-red-tag-text transition-colors bg-transparent border-none cursor-pointer p-0"
                 >
                   Reset
                 </button>
               )}
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div className="flex flex-col gap-2">
               {checklistItems.map((item) => (
                 <div
                   key={item.id}
                   onClick={() => toggleCheck(item.id)}
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "12px",
-                    padding: "10px 14px",
-                    borderRadius: "8px",
-                    background: checked[item.id] ? "#052e16" : "#1a0a0a",
-                    border: `1px solid ${checked[item.id] ? "#166534" : "#3d1515"}`,
-                    cursor: "pointer",
-                    transition: "all 0.15s",
-                  }}
+                  className={`flex items-start gap-3 px-3.5 py-2.5 rounded-lg border cursor-pointer transition-all duration-150
+                    ${checked[item.id] ? "bg-green-950 border-green-800" : "bg-scam-base border-scam-border hover:border-scam-hover"}`}
                 >
-                  <div style={{
-                    width: "18px",
-                    height: "18px",
-                    borderRadius: "4px",
-                    border: `1.5px solid ${checked[item.id] ? "#4ade80" : "#7f1d1d"}`,
-                    background: checked[item.id] ? "#4ade80" : "transparent",
-                    flexShrink: 0,
-                    marginTop: "1px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    transition: "all 0.15s",
-                  }}>
+                  <div className={`w-4.5 h-4.5 rounded flex-shrink-0 mt-0.5 border flex items-center justify-center transition-all duration-150
+                    ${checked[item.id] ? "bg-green-400 border-green-400" : "border-scam-hover bg-transparent"}`}
+                    style={{ width: "18px", height: "18px", borderRadius: "4px" }}
+                  >
                     {checked[item.id] && (
                       <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
                         <path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#052e16" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     )}
                   </div>
-                  <span style={{
-                    fontSize: "13px",
-                    color: checked[item.id] ? "#4ade80" : "#e2e8f0",
-                    lineHeight: "1.5",
-                    transition: "color 0.15s",
-                  }}>
+                  <span className={`text-[13px] leading-relaxed transition-colors duration-150 ${checked[item.id] ? "text-green-400" : "text-white"}`}>
                     {item.text}
                   </span>
                 </div>
               ))}
             </div>
 
-            {/* All checked state */}
             {allChecked && (
-              <div style={{
-                marginTop: "16px",
-                padding: "12px 16px",
-                background: "#052e16",
-                border: "1px solid #166534",
-                borderRadius: "8px",
-                fontSize: "13px",
-                color: "#4ade80",
-                fontWeight: 500,
-                textAlign: "center",
-              }}>
+              <div className="mt-4 px-4 py-3 bg-green-950 border border-green-800 rounded-lg text-[13px] text-green-400 font-medium text-center">
                 ✓ All clear — you've done your checks. Stay sharp.
               </div>
             )}
           </div>
         </div>
 
-        {/* ── SECTION 2: Filters ── */}
-        <div style={{
-          background: "#140a0a",
-          border: "1px solid #3d1515",
-          borderRadius: "12px",
-          padding: "20px",
-          marginBottom: "28px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-        }}>
+        {/* ── Filters ── */}
+        <div className="bg-scam-card border border-scam-border rounded-xl p-5 mb-7 flex flex-col gap-4">
           <FilterRow label="Category" options={categories} selected={selectedCategory} onSelect={setSelectedCategory} />
           <FilterRow label="Severity" options={severities} selected={selectedSeverity} onSelect={setSelectedSeverity} />
         </div>
 
-        {/* Count */}
-        <p style={{ fontSize: "12px", color: "#7f1d1d", marginBottom: "16px", marginTop: 0 }}>
+        <p className="text-xs text-scam-hover mb-4">
           {filtered.length} scam type{filtered.length !== 1 ? "s" : ""} shown
         </p>
 
-        {/* Empty state */}
         {filtered.length === 0 && (
-          <div style={{
-            textAlign: "center",
-            padding: "48px 24px",
-            color: "#7f1d1d",
-            fontSize: "14px",
-            border: "1px dashed #3d1515",
-            borderRadius: "12px",
-          }}>
+          <div className="text-center py-12 text-scam-hover text-sm border border-dashed border-scam-border rounded-xl">
             No scam types match these filters.
           </div>
         )}
 
-        {/* ── SECTION 3: Scam cards ── */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: "12px",
-        }}>
-          {filtered.map((scam) => (
-            <ScamCard key={scam.title} {...scam} />
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {filtered.map((scam) => <ScamCard key={scam.title} {...scam} />)}
         </div>
 
       </div>

@@ -4,160 +4,69 @@ import { tokenTypes, evaluationChecklist, tokenomicsCards } from "../data/tokens
 
 const riskOptions = ["All", "Low", "Medium", "High"];
 
-function getRiskStyle(risk) {
-  if (risk === "High") return { background: "#2d0a0a", color: "#f87171" };
-  if (risk === "Medium") return { background: "#2d1a00", color: "#fbbf24" };
-  return { background: "#052e16", color: "#4ade80" };
+function getRiskClass(risk) {
+  if (risk === "High") return "bg-red-tag-bg text-red-tag-text";
+  if (risk === "Medium") return "bg-amber-tag-bg text-amber-tag-text";
+  return "bg-green-tag-bg text-green-tag-text";
 }
-
-const badgeStyle = {
-  fontSize: "11px",
-  fontWeight: 600,
-  padding: "3px 9px",
-  borderRadius: "20px",
-};
-
-const detailLabelStyle = {
-  display: "block",
-  fontSize: "10px",
-  fontWeight: 700,
-  textTransform: "uppercase",
-  letterSpacing: "0.4px",
-  color: "#9d174d",
-  marginBottom: "4px",
-};
-
-const detailValueStyle = {
-  fontSize: "12px",
-  color: "#e2e8f0",
-  lineHeight: "1.6",
-};
 
 function TokenCard({ type, emoji, description, examples, keyProperties, risk, usedIn, watchOut }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div
-      style={{
-        background: "#180d14",
-        border: "1px solid #4a1942",
-        borderRadius: "12px",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        transition: "border-color 0.15s",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.borderColor = "#9d174d"}
-      onMouseLeave={(e) => e.currentTarget.style.borderColor = "#4a1942"}
-    >
-      {/* Type + risk */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span style={{ fontSize: "20px" }}>{emoji}</span>
-          <h2 style={{ fontSize: "15px", fontWeight: 600, color: "#ffffff", margin: 0, lineHeight: "1.3" }}>
-            {type}
-          </h2>
+    <div className="bg-token-card border border-token-border rounded-xl p-5 flex flex-col gap-3 hover:border-token-hover transition-colors duration-150">
+      <div className="flex justify-between items-start gap-2">
+        <div className="flex items-center gap-2.5">
+          <span className="text-xl">{emoji}</span>
+          <h2 className="text-[15px] font-semibold text-white leading-snug">{type}</h2>
         </div>
-        <span style={{ ...badgeStyle, ...getRiskStyle(risk), flexShrink: 0 }}>
+        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0 ${getRiskClass(risk)}`}>
           {risk} risk
         </span>
       </div>
 
-      {/* Description */}
-      <p style={{ fontSize: "13px", color: "#f9a8d4", lineHeight: "1.55", margin: 0 }}>
-        {description}
-      </p>
+      <p className="text-[13px] text-pink-tag-text leading-relaxed">{description}</p>
 
-      {/* Examples */}
-      <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
+      <div className="flex gap-1.5 flex-wrap">
         {examples.map((ex) => (
-          <span key={ex} style={{
-            fontSize: "11px",
-            padding: "2px 8px",
-            borderRadius: "5px",
-            background: "#0d0810",
-            color: "#94a3b8",
-            border: "1px solid #4a1942",
-          }}>
-            {ex}
-          </span>
+          <span key={ex} className="text-[11px] px-2 py-0.5 rounded bg-token-base text-white/70 border border-token-border">{ex}</span>
         ))}
       </div>
 
-      {/* Expand toggle */}
       <button
         onClick={() => setExpanded(!expanded)}
-        style={{
-          alignSelf: "flex-start",
-          display: "flex",
-          alignItems: "center",
-          gap: "5px",
-          fontSize: "12px",
-          fontWeight: 500,
-          color: "#ffffff",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: 0,
-          fontFamily: "inherit",
-          transition: "opacity 0.15s",
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
-        onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+        className="self-start flex items-center gap-1.5 text-[12px] font-medium text-white hover:opacity-70 transition-opacity bg-transparent border-none cursor-pointer p-0"
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-          style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
+          className={`transition-transform duration-200 ${expanded ? "rotate-180" : "rotate-0"}`}
         >
           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         {expanded ? "Hide details" : "View details"}
       </button>
 
-      {/* Collapsible */}
       {expanded && (
-        <div style={{ borderTop: "1px solid #4a1942", paddingTop: "14px", display: "flex", flexDirection: "column", gap: "12px" }}>
-
-          {/* Key properties */}
+        <div className="border-t border-token-border pt-3 flex flex-col gap-3">
           <div>
-            <span style={detailLabelStyle}>Key properties</span>
-            <ul style={{ margin: "4px 0 0 0", padding: "0 0 0 16px" }}>
+            <span className="block text-[10px] font-bold uppercase tracking-wide text-token-hover mb-1">Key properties</span>
+            <ul className="list-disc list-inside flex flex-col gap-1">
               {keyProperties.map((p, i) => (
-                <li key={i} style={{ fontSize: "12px", color: "#e2e8f0", lineHeight: "1.7" }}>{p}</li>
+                <li key={i} className="text-[12px] text-white leading-relaxed">{p}</li>
               ))}
             </ul>
           </div>
-
-          {/* Watch out */}
-          <div style={{
-            background: "#0d0810",
-            border: "1px solid #4a1942",
-            borderRadius: "8px",
-            padding: "10px 14px",
-            borderLeft: "3px solid #ec4899",
-          }}>
-            <span style={{ fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.4px", color: "#ec4899", display: "block", marginBottom: "3px" }}>
-              ⚠ Watch out
-            </span>
-            <span style={detailValueStyle}>{watchOut}</span>
+          <div className="bg-token-base border-l-4 border-pink-accent rounded-r-lg px-3.5 py-2.5">
+            <span className="block text-[10px] font-bold uppercase tracking-wide text-pink-accent mb-1">⚠ Watch out</span>
+            <span className="text-[12px] text-white leading-relaxed">{watchOut}</span>
           </div>
-
-          {/* Used in */}
           <div>
-            <span style={detailLabelStyle}>Used in</span>
-            <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
+            <span className="block text-[10px] font-bold uppercase tracking-wide text-token-hover mb-1.5">Used in</span>
+            <div className="flex gap-1.5 flex-wrap">
               {usedIn.map((p) => (
-                <span key={p} style={{
-                  fontSize: "11px", padding: "2px 8px", borderRadius: "5px",
-                  background: "#0d0810", color: "#f9a8d4", border: "1px solid #4a1942",
-                }}>
-                  {p}
-                </span>
+                <span key={p} className="text-[11px] px-2 py-0.5 rounded bg-token-base text-pink-tag-text border border-token-border">{p}</span>
               ))}
             </div>
           </div>
-
         </div>
       )}
     </div>
@@ -168,72 +77,50 @@ function TokenPage() {
   const [selectedRisk, setSelectedRisk] = useState("All");
   const navigate = useNavigate();
 
-  const filtered = tokenTypes.filter((t) =>
-    selectedRisk === "All" || t.risk === selectedRisk
-  );
+  const filtered = tokenTypes.filter((t) => selectedRisk === "All" || t.risk === selectedRisk);
 
   return (
-    <div style={{
-      background: "#0a0810",
-      minHeight: "100vh",
-      padding: "40px 24px",
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+    <div className="bg-token-base min-h-screen px-6 py-10 font-sans">
+      <div className="max-w-6xl mx-auto">
 
         {/* Back */}
         <button
           onClick={() => navigate("/")}
-          style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#9d174d", background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "inherit", marginBottom: "28px", transition: "color 0.15s" }}
-          onMouseEnter={(e) => e.currentTarget.style.color = "#f9a8d4"}
-          onMouseLeave={(e) => e.currentTarget.style.color = "#9d174d"}
+          className="flex items-center gap-1.5 text-[13px] text-token-hover hover:text-pink-tag-text transition-colors mb-7"
         >
           ← Back to hub
         </button>
 
         {/* Header */}
-        <div style={{ marginBottom: "40px" }}>
-          <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#ffffff", margin: 0, letterSpacing: "-0.5px" }}>
-            Token 101
-          </h1>
-          <p style={{ fontSize: "14px", color: "#ec4899", marginTop: "6px", marginBottom: 0 }}>
+        <div className="mb-10">
+          <h1 className="text-3xl font-bold text-white tracking-tight">Token 101</h1>
+          <p className="text-sm text-pink-accent mt-1.5">
             Understand what tokens are, how they differ, and how to evaluate them before buying.
           </p>
         </div>
 
         {/* ── SECTION 1: Mental model ── */}
-        <div style={{ marginBottom: "48px" }}>
-          <div style={{
-            background: "#180d14",
-            border: "1px solid #9d174d",
-            borderRadius: "14px",
-            padding: "24px",
-            marginBottom: "16px",
-          }}>
-            <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: "#f9a8d4", marginBottom: "10px" }}>
-              Coins vs tokens
-            </div>
-            <p style={{ fontSize: "15px", color: "#ffffff", lineHeight: "1.7", margin: 0 }}>
-              A <strong style={{ color: "#f9a8d4" }}>coin</strong> is native to its own blockchain — ETH on Ethereum, SOL on Solana. A <strong style={{ color: "#f9a8d4" }}>token</strong> is built on top of an existing blockchain using a smart contract. Most DeFi assets you interact with are tokens, not coins. Both can be traded, held, and used in DeFi — but they have different risk profiles.
+        <div className="mb-12">
+          <div className="bg-token-card border border-pink-accent rounded-2xl p-6 mb-4">
+            <div className="text-[11px] font-bold uppercase tracking-widest text-pink-tag-text mb-2.5">Coins vs tokens</div>
+            <p className="text-[15px] text-white leading-relaxed">
+              A <strong className="text-pink-tag-text">coin</strong> is native to its own blockchain — ETH on Ethereum, SOL on Solana. A{" "}
+              <strong className="text-pink-tag-text">token</strong> is built on top of an existing blockchain using a smart contract. Most DeFi assets you interact with are tokens, not coins.
             </p>
           </div>
 
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-            gap: "10px",
-          }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
             {[
-              { icon: "🏗️", title: "Tokens are smart contracts", body: "Every ERC-20 token is a smart contract on Ethereum. This means token behavior — supply, transfers, approvals — is defined in code that can be audited or exploited." },
-              { icon: "🌐", title: "One blockchain, many tokens", body: "Thousands of tokens exist on Ethereum alone. Any developer can create a token in minutes. This is why token quality varies so dramatically." },
-              { icon: "💎", title: "Value is not guaranteed", body: "A token existing doesn't mean it has value. Value comes from utility, demand, and scarcity. Most tokens trend toward zero over time." },
-              { icon: "📋", title: "Tokenomics matters", body: "How a token is distributed, how many exist, and how new ones are created determines whether holders gain or get diluted. Always check tokenomics before buying." },
+              { icon: "🏗️", title: "Tokens are smart contracts", body: "Every ERC-20 token is a smart contract. Token behavior is defined in code that can be audited or exploited." },
+              { icon: "🌐", title: "One blockchain, many tokens", body: "Thousands of tokens exist on Ethereum alone. Any developer can create a token in minutes." },
+              { icon: "💎", title: "Value is not guaranteed", body: "A token existing doesn't mean it has value. Value comes from utility, demand, and scarcity." },
+              { icon: "📋", title: "Tokenomics matters", body: "How a token is distributed and how new ones are created determines whether holders gain or get diluted." },
             ].map(({ icon, title, body }) => (
-              <div key={title} style={{ background: "#180d14", border: "1px solid #4a1942", borderRadius: "12px", padding: "16px 20px", display: "flex", gap: "14px" }}>
-                <span style={{ fontSize: "22px", flexShrink: 0 }}>{icon}</span>
+              <div key={title} className="bg-token-card border border-token-border rounded-xl p-4 flex gap-3">
+                <span className="text-[22px] flex-shrink-0">{icon}</span>
                 <div>
-                  <div style={{ fontSize: "13px", fontWeight: 700, color: "#ffffff", marginBottom: "4px" }}>{title}</div>
-                  <div style={{ fontSize: "12px", color: "#94a3b8", lineHeight: "1.6" }}>{body}</div>
+                  <div className="text-[13px] font-bold text-white mb-1">{title}</div>
+                  <div className="text-[12px] text-white/70 leading-relaxed">{body}</div>
                 </div>
               </div>
             ))}
@@ -241,115 +128,64 @@ function TokenPage() {
         </div>
 
         {/* ── SECTION 2: Token types ── */}
-        <div style={{ marginBottom: "48px" }}>
-          <div style={{ marginBottom: "16px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#ffffff", margin: "0 0 6px 0" }}>Token types</h2>
-            <p style={{ fontSize: "13px", color: "#f9a8d4", margin: "0 0 16px 0" }}>
-              Not all tokens work the same way. Understanding the type tells you how it gets its value.
-            </p>
+        <div className="mb-12">
+          <h2 className="text-xl font-bold text-white tracking-tight mb-1.5">Token types</h2>
+          <p className="text-[13px] text-pink-tag-text mb-4">Not all tokens work the same way. Understanding the type tells you how it gets its value.</p>
 
-            {/* Risk filter */}
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-              <span style={{ fontSize: "11px", fontWeight: 700, color: "#9d174d", textTransform: "uppercase", letterSpacing: "0.6px", minWidth: "84px" }}>Risk</span>
-              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                {riskOptions.map((opt) => (
-                  <button key={opt} onClick={() => setSelectedRisk(opt)} style={{
-                    fontSize: "13px", fontWeight: 500, padding: "6px 14px", borderRadius: "20px",
-                    border: selectedRisk === opt ? "1px solid #ec4899" : "1px solid #4a1942",
-                    background: selectedRisk === opt ? "#9d174d" : "#180d14",
-                    color: "#ffffff", cursor: "pointer", transition: "all 0.15s", fontFamily: "inherit",
-                  }}
-                    onMouseEnter={(e) => { if (selectedRisk !== opt) { e.currentTarget.style.background = "#2d1020"; e.currentTarget.style.borderColor = "#9d174d"; } }}
-                    onMouseLeave={(e) => { if (selectedRisk !== opt) { e.currentTarget.style.background = "#180d14"; e.currentTarget.style.borderColor = "#4a1942"; } }}
-                  >
-                    {opt}
-                  </button>
-                ))}
-              </div>
+          {/* Filter */}
+          <div className="flex items-center gap-2 flex-wrap mb-4">
+            <span className="text-[11px] font-bold uppercase tracking-wide text-token-hover min-w-[84px]">Risk</span>
+            <div className="flex gap-1.5 flex-wrap">
+              {riskOptions.map((opt) => (
+                <button key={opt} onClick={() => setSelectedRisk(opt)} className={`text-[13px] font-medium px-3.5 py-1.5 rounded-full border transition-all duration-150 cursor-pointer
+                  ${selectedRisk === opt
+                    ? "bg-pink-accent border-pink-accent text-white font-semibold"
+                    : "bg-token-card border-token-border text-white hover:bg-token-base hover:border-token-hover"
+                  }`}
+                >
+                  {opt}
+                </button>
+              ))}
             </div>
           </div>
 
-          <p style={{ fontSize: "12px", color: "#9d174d", marginBottom: "14px" }}>
-            {filtered.length} token type{filtered.length !== 1 ? "s" : ""} shown
-          </p>
+          <p className="text-xs text-token-hover mb-3">{filtered.length} token type{filtered.length !== 1 ? "s" : ""} shown</p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "12px" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filtered.map((t) => <TokenCard key={t.type} {...t} />)}
           </div>
         </div>
 
-        {/* ── SECTION 3: How to evaluate a token ── */}
-        <div style={{ marginBottom: "48px" }}>
-          <div style={{ marginBottom: "16px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#ffffff", margin: "0 0 6px 0" }}>How to evaluate a token</h2>
-            <p style={{ fontSize: "13px", color: "#f9a8d4", margin: 0 }}>
-              Ask these questions before buying anything. If you can't answer them — don't buy.
-            </p>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "10px" }}>
+        {/* ── SECTION 3: Evaluation checklist ── */}
+        <div className="mb-12">
+          <h2 className="text-xl font-bold text-white tracking-tight mb-1.5">How to evaluate a token</h2>
+          <p className="text-[13px] text-pink-tag-text mb-4">Ask these questions before buying anything. If you can't answer them — don't buy.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
             {evaluationChecklist.map((item, i) => (
-              <div key={i} style={{
-                background: "#180d14",
-                border: "1px solid #4a1942",
-                borderRadius: "12px",
-                padding: "16px 20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "8px",
-                transition: "border-color 0.15s",
-              }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = "#9d174d"}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = "#4a1942"}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <span style={{ fontSize: "20px" }}>{item.icon}</span>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#f9a8d4", lineHeight: "1.3" }}>{item.question}</span>
+              <div key={i} className="bg-token-card border border-token-border rounded-xl p-4 flex flex-col gap-2 hover:border-token-hover transition-colors duration-150">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xl">{item.icon}</span>
+                  <span className="text-[13px] font-bold text-pink-tag-text leading-snug">{item.question}</span>
                 </div>
-                <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: "1.6", margin: 0 }}>{item.detail}</p>
+                <p className="text-[12px] text-white/70 leading-relaxed">{item.detail}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* ── SECTION 4: Tokenomics basics ── */}
-        <div style={{ marginBottom: "16px" }}>
-          <div style={{ marginBottom: "16px" }}>
-            <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#ffffff", margin: "0 0 6px 0" }}>Tokenomics basics</h2>
-            <p style={{ fontSize: "13px", color: "#f9a8d4", margin: 0 }}>
-              The six concepts that determine whether a token rewards or dilutes its holders over time.
-            </p>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "10px" }}>
+        {/* ── SECTION 4: Tokenomics ── */}
+        <div>
+          <h2 className="text-xl font-bold text-white tracking-tight mb-1.5">Tokenomics basics</h2>
+          <p className="text-[13px] text-pink-tag-text mb-4">The six concepts that determine whether a token rewards or dilutes its holders over time.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {tokenomicsCards.map((card) => (
-              <div key={card.term} style={{
-                background: "#180d14",
-                border: "1px solid #4a1942",
-                borderRadius: "12px",
-                padding: "18px 20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "8px",
-                transition: "border-color 0.15s",
-              }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = "#9d174d"}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = "#4a1942"}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <span style={{ fontSize: "20px" }}>{card.icon}</span>
-                  <span style={{ fontSize: "14px", fontWeight: 700, color: "#ffffff" }}>{card.term}</span>
+              <div key={card.term} className="bg-token-card border border-token-border rounded-xl p-4 flex flex-col gap-2 hover:border-token-hover transition-colors duration-150">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xl">{card.icon}</span>
+                  <span className="text-[14px] font-bold text-white">{card.term}</span>
                 </div>
-                <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: "1.6", margin: 0 }}>{card.definition}</p>
-                <div style={{
-                  background: "#0d0810",
-                  borderRadius: "6px",
-                  padding: "8px 12px",
-                  fontSize: "11px",
-                  color: "#f9a8d4",
-                  lineHeight: "1.5",
-                  borderLeft: "2px solid #ec4899",
-                }}>
+                <p className="text-[12px] text-white/70 leading-relaxed">{card.definition}</p>
+                <div className="bg-token-base border-l-2 border-pink-accent rounded-r px-3 py-2 text-[11px] text-pink-tag-text leading-relaxed">
                   {card.example}
                 </div>
               </div>

@@ -1,123 +1,65 @@
 import { useState } from "react";
 
-function getSpeedStyle(speed) {
-  if (speed === "Fast") return { background: "#052e16", color: "#4ade80" };
-  if (speed === "Medium") return { background: "#2d1a00", color: "#fbbf24" };
-  return { background: "#2d0a0a", color: "#f87171" };
+function getSpeedClass(speed) {
+  if (speed === "Fast") return "bg-green-tag-bg text-green-tag-text";
+  if (speed === "Medium") return "bg-amber-tag-bg text-amber-tag-text";
+  return "bg-red-tag-bg text-red-tag-text";
 }
 
-function getFeesStyle(fees) {
-  if (fees === "Low") return { background: "#052e16", color: "#4ade80" };
-  if (fees === "Medium") return { background: "#2d1a00", color: "#fbbf24" };
-  return { background: "#2d0a0a", color: "#f87171" };
+function getFeesClass(fees) {
+  if (fees === "Low") return "bg-green-tag-bg text-green-tag-text";
+  if (fees === "Medium") return "bg-amber-tag-bg text-amber-tag-text";
+  return "bg-red-tag-bg text-red-tag-text";
 }
 
-function getSecurityStyle(security) {
-  if (security === "High") return { background: "#0c1a2e", color: "#60a5fa" };
-  if (security === "Medium") return { background: "#1a0d2e", color: "#a78bfa" };
-  return { background: "#2d1a2d", color: "#e879f9" };
+function getSecurityClass(security) {
+  if (security === "High") return "bg-blue-tag-bg text-blue-tag-text";
+  if (security === "Medium") return "bg-purple-tag-bg text-purple-tag-text";
+  return "bg-pink-tag-bg text-pink-tag-text";
 }
 
-function getLayerStyle(layer) {
-  if (layer === "L1") return { background: "#1a0d2e", color: "#a78bfa", border: "1px solid #4c1d95" };
-  if (layer === "L2") return { background: "#0c1a2e", color: "#818cf8", border: "1px solid #1e3a5f" };
-  return { background: "#1e293b", color: "#94a3b8", border: "1px solid #2d3748" };
+function getLayerClass(layer) {
+  if (layer === "L1") return "bg-purple-tag-bg text-purple-tag-text border border-purple-border";
+  if (layer === "L2") return "bg-blue-tag-bg text-blue-tag-text border border-blue-border";
+  return "bg-defi-card text-white/70 border border-defi-border";
 }
 
-function getEcosystemStyle(ecosystem) {
-  if (ecosystem === "EVM") return { background: "#1a1a2e", color: "#c084fc" };
-  if (ecosystem === "SVM") return { background: "#1a2e1a", color: "#34d399" };
-  if (ecosystem === "MoveVM") return { background: "#2e1a1a", color: "#fb923c" };
-  return { background: "#1e293b", color: "#94a3b8" };
+function getEcosystemClass(ecosystem) {
+  if (ecosystem === "EVM") return "bg-chain-card text-purple-tag-text";
+  if (ecosystem === "SVM") return "bg-chain-card text-green-tag-text";
+  if (ecosystem === "MoveVM") return "bg-chain-card text-amber-tag-text";
+  return "bg-chain-card text-white/70";
 }
-
-const badgeStyle = {
-  fontSize: "11px",
-  fontWeight: 600,
-  padding: "3px 9px",
-  borderRadius: "20px",
-};
-
-const detailLabelStyle = {
-  display: "block",
-  fontSize: "10px",
-  fontWeight: 700,
-  textTransform: "uppercase",
-  letterSpacing: "0.4px",
-  color: "#6d28d9",
-  marginBottom: "3px",
-};
-
-const detailValueStyle = {
-  fontSize: "12px",
-  color: "#e2e8f0",
-  lineHeight: "1.6",
-};
 
 function ChainCard({ name, layer, ecosystem, speed, fees, security, bestFor, weaknesses, nativeToken, wallet, topProtocols, url }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div
-      style={{
-        background: "#120f1a",
-        border: "1px solid #2d1f45",
-        borderRadius: "12px",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        transition: "border-color 0.15s",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.borderColor = "#5b21b6"}
-      onMouseLeave={(e) => e.currentTarget.style.borderColor = "#2d1f45"}
-    >
-      {/* Name + layer/ecosystem badges */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
-        <h2 style={{ fontSize: "15px", fontWeight: 600, color: "#ffffff", margin: 0, lineHeight: "1.3" }}>
-          {name}
-        </h2>
-        <div style={{ display: "flex", gap: "5px", flexShrink: 0 }}>
-          <span style={{ ...badgeStyle, ...getLayerStyle(layer) }}>{layer}</span>
-          <span style={{ ...badgeStyle, ...getEcosystemStyle(ecosystem) }}>{ecosystem}</span>
+    <div className="bg-chain-card border border-chain-border rounded-xl p-5 flex flex-col gap-3 hover:border-chain-hover transition-colors duration-150">
+
+      {/* Name + layer/ecosystem */}
+      <div className="flex justify-between items-start gap-2 flex-wrap">
+        <h2 className="text-[15px] font-semibold text-white leading-snug">{name}</h2>
+        <div className="flex gap-1.5 flex-shrink-0">
+          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${getLayerClass(layer)}`}>{layer}</span>
+          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${getEcosystemClass(ecosystem)}`}>{ecosystem}</span>
         </div>
       </div>
 
       {/* Best for */}
-      <p style={{ fontSize: "13px", color: "#a78bfa", lineHeight: "1.55", margin: 0 }}>
-        {bestFor}
-      </p>
+      <p className="text-[13px] text-purple-tag-text leading-relaxed">{bestFor}</p>
 
-      {/* Speed / Fees / Security badges */}
-      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-        <span style={{ ...badgeStyle, ...getSpeedStyle(speed) }}>⚡ {speed} speed</span>
-        <span style={{ ...badgeStyle, ...getFeesStyle(fees) }}>⛽ {fees} fees</span>
-        <span style={{ ...badgeStyle, ...getSecurityStyle(security) }}>🛡 {security} security</span>
+      {/* Speed / Fees / Security */}
+      <div className="flex gap-1.5 flex-wrap">
+        <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${getSpeedClass(speed)}`}>⚡ {speed} speed</span>
+        <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${getFeesClass(fees)}`}>⛽ {fees} fees</span>
+        <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${getSecurityClass(security)}`}>🛡 {security} security</span>
       </div>
 
-      {/* Native token + wallet */}
-      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-        <span style={{
-          fontSize: "11px",
-          padding: "2px 9px",
-          borderRadius: "5px",
-          background: "#1a1230",
-          color: "#c084fc",
-          border: "1px solid #2d1f45",
-        }}>
-          {nativeToken}
-        </span>
-        <span style={{
-          fontSize: "11px",
-          padding: "2px 9px",
-          borderRadius: "5px",
-          background: "#1a1230",
-          color: "#94a3b8",
-          border: "1px solid #2d1f45",
-        }}>
-          🦊 {wallet}
-        </span>
+      {/* Token + wallet */}
+      <div className="flex gap-1.5 flex-wrap">
+        <span className="text-[11px] px-2.5 py-0.5 rounded bg-chain-base text-purple-tag-text border border-chain-border">{nativeToken}</span>
+        <span className="text-[11px] px-2.5 py-0.5 rounded bg-chain-base text-white/70 border border-chain-border">🦊 {wallet}</span>
       </div>
 
       {/* Official link */}
@@ -125,16 +67,7 @@ function ChainCard({ name, layer, ecosystem, speed, fees, security, bestFor, wea
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        style={{
-          fontSize: "12px",
-          fontWeight: 600,
-          color: "#a78bfa",
-          textDecoration: "none",
-          width: "fit-content",
-          transition: "opacity 0.15s",
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
-        onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+        className="text-[12px] font-semibold text-purple-tag-text hover:opacity-70 transition-opacity no-underline w-fit"
       >
         Official site ↗
       </a>
@@ -142,60 +75,28 @@ function ChainCard({ name, layer, ecosystem, speed, fees, security, bestFor, wea
       {/* Expand toggle */}
       <button
         onClick={() => setExpanded(!expanded)}
-        style={{
-          alignSelf: "flex-start",
-          display: "flex",
-          alignItems: "center",
-          gap: "5px",
-          fontSize: "12px",
-          fontWeight: 500,
-          color: "#ffffff",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: 0,
-          fontFamily: "inherit",
-          transition: "opacity 0.15s",
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
-        onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+        className="self-start flex items-center gap-1.5 text-[12px] font-medium text-white hover:opacity-70 transition-opacity bg-transparent border-none cursor-pointer p-0"
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-          style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
+          className={`transition-transform duration-200 ${expanded ? "rotate-180" : "rotate-0"}`}
         >
           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         {expanded ? "Hide details" : "View details"}
       </button>
 
-      {/* Collapsible details */}
+      {/* Collapsible */}
       {expanded && (
-        <div style={{
-          borderTop: "1px solid #2d1f45",
-          paddingTop: "14px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}>
+        <div className="border-t border-chain-border pt-3 flex flex-col gap-3">
           <div>
-            <span style={detailLabelStyle}>Watch out</span>
-            <span style={detailValueStyle}>{weaknesses}</span>
+            <span className="block text-[10px] font-bold uppercase tracking-wide text-chain-hover mb-1">Watch out</span>
+            <span className="text-[12px] text-white leading-relaxed">{weaknesses}</span>
           </div>
-
           <div>
-            <span style={detailLabelStyle}>Top protocols</span>
-            <div style={{ display: "flex", gap: "5px", flexWrap: "wrap", marginTop: "4px" }}>
+            <span className="block text-[10px] font-bold uppercase tracking-wide text-chain-hover mb-1.5">Top protocols</span>
+            <div className="flex gap-1.5 flex-wrap">
               {topProtocols.map((p) => (
-                <span key={p} style={{
-                  fontSize: "11px",
-                  padding: "2px 8px",
-                  borderRadius: "5px",
-                  background: "#1a1230",
-                  color: "#a78bfa",
-                  border: "1px solid #2d1f45",
-                }}>
-                  {p}
-                </span>
+                <span key={p} className="text-[11px] px-2 py-0.5 rounded bg-chain-base text-purple-tag-text border border-chain-border">{p}</span>
               ))}
             </div>
           </div>

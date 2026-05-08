@@ -1,78 +1,38 @@
 import { useState } from "react";
 
-function getTypeStyle(type) {
-  if (type === "Hot") return { background: "#1a2d1a", color: "#4ade80", border: "1px solid #166534" };
-  if (type === "Cold") return { background: "#0c1a2e", color: "#60a5fa", border: "1px solid #1e3a5f" };
-  return { background: "#1e293b", color: "#94a3b8", border: "1px solid #2d3748" };
+function getTypeClass(type) {
+  if (type === "Hot") return "bg-green-tag-bg text-green-tag-text border border-green-border";
+  return "bg-blue-tag-bg text-blue-tag-text border border-blue-border";
 }
 
 function WalletCard({ name, type, bestFor, chains, watchOut, beginner, url }) {
   const [expanded, setExpanded] = useState(false);
-  const typeStyle = getTypeStyle(type);
 
   return (
-    <div
-      style={{
-        background: "#0f1a1a",
-        border: "1px solid #1a3333",
-        borderRadius: "12px",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        transition: "border-color 0.15s",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.borderColor = "#2a5555"}
-      onMouseLeave={(e) => e.currentTarget.style.borderColor = "#1a3333"}
-    >
-      {/* Name + type badge */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
-        <h2 style={{ fontSize: "15px", fontWeight: 600, color: "#ffffff", margin: 0, lineHeight: "1.3" }}>
-          {name}
-        </h2>
-        <div style={{ display: "flex", gap: "6px", flexShrink: 0 }}>
+    <div className="bg-wallet-card border border-wallet-border rounded-xl p-5 flex flex-col gap-3 hover:border-wallet-hover transition-colors duration-150">
+
+      {/* Name + badges */}
+      <div className="flex justify-between items-start gap-2 flex-wrap">
+        <h2 className="text-[15px] font-semibold text-white leading-snug">{name}</h2>
+        <div className="flex gap-1.5 flex-shrink-0 flex-wrap">
           {beginner && (
-            <span style={{
-              fontSize: "10px",
-              fontWeight: 600,
-              padding: "2px 8px",
-              borderRadius: "20px",
-              background: "#2d2000",
-              color: "#fbbf24",
-              border: "1px solid #854d0e",
-            }}>
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-tag-bg text-amber-tag-text border border-amber-border">
               Beginner friendly
             </span>
           )}
-          <span style={{
-            fontSize: "10px",
-            fontWeight: 600,
-            padding: "2px 8px",
-            borderRadius: "20px",
-            ...typeStyle,
-          }}>
+          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${getTypeClass(type)}`}>
             {type} wallet
           </span>
         </div>
       </div>
 
       {/* Best for */}
-      <p style={{ fontSize: "13px", color: "#5eead4", lineHeight: "1.55", margin: 0 }}>
-        {bestFor}
-      </p>
+      <p className="text-[13px] text-teal-accent leading-relaxed">{bestFor}</p>
 
       {/* Chains */}
-      <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
+      <div className="flex gap-1.5 flex-wrap">
         {chains.map((chain) => (
-          <span key={chain} style={{
-            fontSize: "11px",
-            padding: "2px 8px",
-            borderRadius: "5px",
-            background: "#0d2020",
-            color: "#94a3b8",
-            border: "1px solid #1a3333",
-          }}>
+          <span key={chain} className="text-[11px] px-2 py-0.5 rounded bg-wallet-base text-white/70 border border-wallet-border">
             {chain}
           </span>
         ))}
@@ -83,19 +43,7 @@ function WalletCard({ name, type, bestFor, chains, watchOut, beginner, url }) {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        style={{
-          fontSize: "12px",
-          fontWeight: 600,
-          color: "#2dd4bf",
-          textDecoration: "none",
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "4px",
-          transition: "opacity 0.15s",
-          width: "fit-content",
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
-        onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+        className="text-[12px] font-semibold text-teal-accent hover:opacity-70 transition-opacity no-underline w-fit"
       >
         Official site ↗
       </a>
@@ -103,53 +51,23 @@ function WalletCard({ name, type, bestFor, chains, watchOut, beginner, url }) {
       {/* Expand toggle */}
       <button
         onClick={() => setExpanded(!expanded)}
-        style={{
-          alignSelf: "flex-start",
-          display: "flex",
-          alignItems: "center",
-          gap: "5px",
-          fontSize: "12px",
-          fontWeight: 500,
-          color: "#ffffff",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: 0,
-          fontFamily: "inherit",
-          transition: "opacity 0.15s",
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.opacity = "0.7"}
-        onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
+        className="self-start flex items-center gap-1.5 text-[12px] font-medium text-white hover:opacity-70 transition-opacity bg-transparent border-none cursor-pointer p-0"
       >
-        <svg
-          width="12" height="12" viewBox="0 0 12 12" fill="none"
-          style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+          className={`transition-transform duration-200 ${expanded ? "rotate-180" : "rotate-0"}`}
         >
           <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         {expanded ? "Hide details" : "View details"}
       </button>
 
-      {/* Collapsible — watch out */}
+      {/* Watch out */}
       {expanded && (
-        <div style={{
-          borderTop: "1px solid #1a3333",
-          paddingTop: "12px",
-        }}>
-          <span style={{
-            display: "block",
-            fontSize: "10px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.4px",
-            color: "#f59e0b",
-            marginBottom: "4px",
-          }}>
+        <div className="border-t border-wallet-border pt-3">
+          <span className="block text-[10px] font-bold uppercase tracking-wide text-amber-accent mb-1">
             ⚠ Watch out
           </span>
-          <span style={{ fontSize: "12px", color: "#e2e8f0", lineHeight: "1.6" }}>
-            {watchOut}
-          </span>
+          <span className="text-[12px] text-white leading-relaxed">{watchOut}</span>
         </div>
       )}
     </div>
