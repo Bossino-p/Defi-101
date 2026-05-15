@@ -168,19 +168,19 @@ export const otherEcosystems = [
   {
     name: "Bitcoin",
     emoji: "₿",
-    summary:
-      "The original blockchain. Limited smart contract capability natively, but DeFi is growing through layers like Lightning Network and Stacks. Not EVM compatible — requires a Bitcoin-specific wallet.",
+    summary: "The original blockchain. Limited smart contract capability natively, but DeFi is growing through layers like Lightning Network and Stacks. Not EVM compatible — requires a Bitcoin-specific wallet.",
+    url: "https://bossino-p.github.io/bitcoin-deepdive/",
   },
   {
     name: "Cosmos",
     emoji: "⚛️",
-    summary:
-      "An ecosystem of interconnected app-chains that communicate via IBC (Inter-Blockchain Communication). Each chain is sovereign but interoperable. Requires Cosmos-specific wallets like Keplr or Leap.",
+    summary: "An ecosystem of interconnected app-chains that communicate via IBC (Inter-Blockchain Communication). Each chain is sovereign but interoperable. Requires Cosmos-specific wallets like Keplr or Leap.",
+    url: null,  // coming soon
   },
   {
     name: "TON",
     emoji: "💎",
-    summary:
-      "Telegram-native blockchain with a massive potential user base through Telegram's 900M+ users. Growing DeFi ecosystem but very early stage. Uses Telegram wallet for onboarding.",
+    summary: "Telegram-native blockchain with a massive potential user base through Telegram's 900M+ users. Growing DeFi ecosystem but very early stage. Uses Telegram wallet for onboarding.",
+    url: null,  // coming soon
   },
 ];

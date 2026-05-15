@@ -164,9 +164,37 @@ function Home() {
       </div>
 
       {/* Coming soon */}
-      <p className="text-xs text-muted-darker mb-16">
-        More guides coming soon
+     <p className="text-xs text-muted-darker mb-8">
+  More guides coming soon
+</p>
+
+{/* Related projects */}
+<div className="w-full max-w-5xl mt-4 mb-16">
+  <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-muted-darker mb-4">
+    Also explore
+  </p>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    <a
+      href="https://bossino-p.github.io/bitcoin-deepdive/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-dark-card border border-[#3d2000] hover:border-[#f7931a] rounded-2xl p-6 text-left transition-all duration-200 hover:-translate-y-0.5 no-underline group"
+    >
+      <span className="text-[11px] font-semibold px-2 py-1 rounded-full bg-[#2d1500] text-[#f7931a] inline-block mb-3">
+        Standalone project
+      </span>
+      <div className="text-[18px] font-bold text-white mb-2 tracking-tight">
+        Bitcoin Deep Dive
+      </div>
+      <p className="text-[12px] text-muted leading-relaxed mb-4">
+        A dedicated guide to Bitcoin — how it works, the monetary policy, Lightning Network, self-custody, and the philosophy behind it.
       </p>
+      <div className="text-[12px] font-semibold text-[#f7931a]">
+        Explore ↗
+      </div>
+    </a>
+  </div>
+</div>
 
       {/* Disclaimer */}
       <div className="w-full max-w-5xl border-t border-dark-border pt-10 text-left">

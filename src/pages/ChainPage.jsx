@@ -177,7 +177,20 @@ function ChainPage() {
                 <div className="flex items-center gap-2.5">
                   <span className="text-[22px]">{eco.emoji}</span>
                   <span className="text-[14px] font-bold text-white">{eco.name}</span>
-                  <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-chain-base text-chain-hover border border-chain-border">Coming soon</span>
+                  {eco.url ? (
+                    <a
+                      href={eco.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-[#2d1500] text-[#f7931a] border border-[#3d2000] hover:border-[#f7931a] transition-colors no-underline"
+                    >
+                      Explore ↗
+                    </a>
+                  ) : (
+                    <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-chain-base text-chain-hover border border-chain-border">
+                      Coming soon
+                    </span>
+                  )}
                 </div>
                 <p className="text-[12px] text-white/70 leading-relaxed">{eco.summary}</p>
               </div>
